@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  registry:
+    image: registry:2
+    ports:
+      - 5000:5000
+    environment:
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY="/data"
+      - REGISTRY_AUTH="htpasswd"
+      - REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
+      - REGISTRY_AUTH_HTPASSWD_PATH="/opt/registry/auth/reg.pass"
+    volumes:
+      - ./data:/data
+      - ./auth:/opt/registry/auth
+  web:
+    image: httpd:2
+    ports:
+      - 80:8080
+    volumes:
+      - ./auth:/opt/registry/auth

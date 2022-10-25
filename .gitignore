@@ -1,1 +1,4 @@
 .vagrant
+.pytest_cache
+registry/auth/reg.pass
+registry/data
